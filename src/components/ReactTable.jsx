@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
 import { useTable } from 'react-table'
+import ContentTable from './ContentTable'
 
-const ReactTable = ({myData,COLUMNS}) => {
+const ReactTable = ({myData, COLUMNS}) => {
 
-
+  
 
   const columns = useMemo(() => COLUMNS,
   // react-hooks/exhaustive-deps
@@ -14,6 +15,9 @@ const ReactTable = ({myData,COLUMNS}) => {
   // react-hooks/exhaustive-deps
   
   [])
+  const getData=()=>{
+    console.log('raheel')
+  }
 
 
   const tableInstance = useTable({
@@ -23,40 +27,7 @@ const ReactTable = ({myData,COLUMNS}) => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance
   return (
-    <table {...getTableProps()} border='1'>
-        <thead>
-                {headerGroups.map((headerGroup)=>(
-                  <tr {...headerGroup.getHeaderGroupProps()}> 
-                {headerGroup.headers.map((column)=>(
-                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                ))}
-
-                  </tr>
-                ))}
-
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row)
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-
-                  return (
-                    <>
-                      <td {...cell.getCellProps()}>{cell.render('Cell')} </td>
-
-                    </>
-                  )
-
-                })}
-              </tr>
-            )
-          })}
-
-
-        </tbody>
-      </table>
+    <ContentTable getTableProps={getTableProps} getTableBodyProps={getTableBodyProps} headerGroups={headerGroups} rows={rows} prepareRow={prepareRow}  />
   )
 }
 
